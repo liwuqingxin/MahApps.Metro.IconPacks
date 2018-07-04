@@ -195,27 +195,51 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <ContentControl Grid.Row="0" x:Name="IconContent" Content="{Binding}" Focusable="False" IsTabStop="False" />
-                            <Button x:Name="Copy2ClipboardButton"
-                                    Command="{Binding CopyToClipboard}"
-                                    CommandParameter="{Binding}"
-                                    Grid.Row="0"
-                                    Focusable="False"
-                                    IsTabStop="False"
-                                    Visibility="Collapsed"
-                                    Style="{StaticResource CustomMetroCircleButtonStyle}"
-                                    Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
-                                    Padding="0"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Left"
-                                    BorderThickness="0"
-                                    Width="32"
-                                    Height="32"
-                                    Margin="2">
-                                <Button.ToolTip>
-                                    <TextBlock Text="{Binding Value, StringFormat='{}Copy {0} to Clipboard'}" />
-                                </Button.ToolTip>
-                                <iconPacks:PackIconFontAwesome Kind="ClipboardRegular" />
-                            </Button>
+
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <Button x:Name="Copy2ClipboardButton"
+                                        Command="{Binding CopyToClipboard}"
+                                        CommandParameter="{Binding}"
+                                        Focusable="False"
+                                        IsTabStop="False"
+                                        Visibility="Collapsed"
+                                        Style="{StaticResource CustomMetroCircleButtonStyle}"
+                                        Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
+                                        Padding="0"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Width="32"
+                                        Height="32"
+                                        Margin="2">
+                                    <Button.ToolTip>
+                                        <TextBlock Text="{Binding Value, StringFormat='{}Copy {0} to Clipboard'}" />
+                                    </Button.ToolTip>
+                                    <iconPacks:PackIconFontAwesome Kind="ClipboardRegular" />
+                                </Button>
+
+                                <Button x:Name="CopyData2ClipboardButton"
+                                        Command="{Binding CopyDataToClipboard}"
+                                        CommandParameter="{Binding}"
+                                        Focusable="False"
+                                        IsTabStop="False"
+                                        Visibility="Collapsed"
+                                        Style="{StaticResource CustomMetroCircleButtonStyle}"
+                                        Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
+                                        Padding="0"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        Width="32"
+                                        Height="32"
+                                        Margin="2">
+                                    <Button.ToolTip>
+                                        <TextBlock Text="{Binding Value, StringFormat='{}Copy {0} Path Data to Clipboard'}" />
+                                    </Button.ToolTip>
+                                    <iconPacks:PackIconFontAwesome Kind="CopyrightSolid" />
+                                </Button>
+                            </StackPanel>
+
                             <TextBlock Grid.Row="1"
                                        Margin="2"
                                        HorizontalAlignment="Center"
@@ -225,6 +249,7 @@
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" Value="True">
                                 <Setter TargetName="Copy2ClipboardButton" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="CopyData2ClipboardButton" Property="Visibility" Value="Visible" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IconType}" Value="{x:Type iconPacks:PackIconMaterialKind}">
                                 <Setter TargetName="IconContent" Property="ContentTemplate">
