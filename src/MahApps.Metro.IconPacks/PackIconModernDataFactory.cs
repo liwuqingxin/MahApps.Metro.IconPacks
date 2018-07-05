@@ -6,11 +6,11 @@ namespace MahApps.Metro.IconPacks
     /// This code is auto generated. Do not amend.
     /// ******************************************
 
-    public static class PackIconModernDataFactory
+    internal static class PackIconModernDataFactory
     {
-        public static PackIconModernDataFactoryDerived Create()
+        internal static IDictionary<PackIconModernKind, string> Create()
         {
-            return new PackIconModernDataFactoryDerived
+            return new Dictionary<PackIconModernKind, string>
                    {
                        {PackIconModernKind.None, ""},
                        {PackIconModernKind._3d3ds, "M27,18L23,26L33,30L24,38L33,46L23,50L27,58H45L55,38L45,18H27Z"},

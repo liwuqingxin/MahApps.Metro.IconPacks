@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Markup;
 
 namespace MahApps.Metro.IconPacks.Browser.ViewModels
 {
@@ -148,23 +146,6 @@ namespace MahApps.Metro.IconPacks.Browser.ViewModels
                         Clipboard.SetDataObject(text);
                     }))
                 };
-
-            this.CopyDataToClipboard = new SimpleCommand(
-                o => Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    var icon = (IIconViewModel) o;
-
-                    string factory = icon.IconType.FullName?.Replace("Kind", "DataFactory");
-                    if (string.IsNullOrEmpty(factory)) return;
-
-                    Type type = Assembly.GetAssembly(typeof(PackIconExtension)).GetType(factory);
-                    MethodInfo method = type?.GetMethod("Create");
-                    IPackIconDataFactory dic = method?.Invoke(null, null) as IPackIconDataFactory;
-                    if (dic == null) return;
-
-                    Clipboard.SetDataObject(dic.GetValue(icon.Value));
-                })),
-                o => o != null);
         }
 
         private ICommand _copyToClipboard;
@@ -179,21 +160,6 @@ namespace MahApps.Metro.IconPacks.Browser.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
-        private ICommand _copyDataToClipboard;
-
-        public ICommand CopyDataToClipboard
-        {
-            get { return _copyDataToClipboard; }
-            set
-            {
-                if (Equals(value, _copyDataToClipboard)) return;
-                _copyDataToClipboard = value;
-                OnPropertyChanged(nameof(CopyDataToClipboard));
-            }
-        }
-
 
         public string Name { get; set; }
 
