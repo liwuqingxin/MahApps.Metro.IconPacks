@@ -162,7 +162,8 @@ namespace MahApps.Metro.IconPacks.Browser.ViewModels
                     IPackIconDataFactory dic = method?.Invoke(null, null) as IPackIconDataFactory;
                     if (dic == null) return;
 
-                    Clipboard.SetDataObject(dic.GetValue(icon.Value));
+                    var text = $"<PathGeometry x:Key=\"{icon.Name}\" Figures=\"{dic.GetValue(icon.Value)}\"/>";
+                    Clipboard.SetDataObject(text);
                 })),
                 o => o != null);
         }
