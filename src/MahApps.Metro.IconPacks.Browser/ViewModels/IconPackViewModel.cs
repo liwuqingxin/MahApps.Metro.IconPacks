@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -180,6 +182,25 @@ namespace MahApps.Metro.IconPacks.Browser.ViewModels
                         Clipboard.SetDataObject(text);
                     }))
                 };
+
+
+            this.CopyDataToClipboard =
+                new SimpleCommand
+                {
+                    CanExecuteDelegate = x => (x != null),
+                    ExecuteDelegate = x => Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        var icon    = (IIconViewModel)x;
+                        var factory = icon.IconType.FullName?.Replace("Kind", "DataFactory");
+                        var type    = Assembly.GetAssembly(icon.Value.GetType()).GetType(factory ?? "");
+                        var method  = type?.GetMethod("Create");
+                        var dic     = method?.Invoke(null, null) as IDictionary;
+                        if (dic == null || dic.Contains(icon.Value) == false) return;
+
+                        var text = $"<PathGeometry x:Key=\"{icon.Name}\" Figures=\"{dic[icon.Value]}\"/>";
+                        Clipboard.SetDataObject(text);
+                    }))
+                };
         }
 
         public ICommand CopyToClipboard { get; }
@@ -187,6 +208,8 @@ namespace MahApps.Metro.IconPacks.Browser.ViewModels
         public ICommand CopyToClipboardAsContent { get; }
 
         public ICommand CopyToClipboardAsPathIcon { get; }
+
+        public ICommand CopyDataToClipboard { get; }
 
         public string Name { get; set; }
 

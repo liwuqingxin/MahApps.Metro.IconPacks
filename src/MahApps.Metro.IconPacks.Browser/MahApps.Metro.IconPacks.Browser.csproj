@@ -15,6 +15,7 @@
         <OutputType>WinExe</OutputType>
         <NoWarn>SA1652</NoWarn>
         <ApplicationManifest>app.manifest</ApplicationManifest>
+        <ApplicationIcon>turtle_128px_1202537_easyicon.net.ico</ApplicationIcon>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\MahApps.Metro.IconPacks.Core\MahApps.Metro.IconPacks.Core.csproj" />
@@ -39,6 +40,9 @@
         <AppConfigWithTargetPath Include="App.$(TargetFramework).config">
             <TargetPath>$(AssemblyName).config</TargetPath>
         </AppConfigWithTargetPath>
+    </ItemGroup>
+    <ItemGroup>
+      <Resource Remove="turtle_128px_1202537_easyicon.net.ico" />
     </ItemGroup>
     <ItemGroup>
         <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
