@@ -25,4 +25,6 @@
         <Page Exclude="**\bin\**\*.xaml;**\obj\**\*.xaml" Generator="MSBuild:Compile" Include="Themes\UAP\JamIcons\*.xaml;Themes\UAP\PackIconJamIcons.xaml" Link="Themes\%(RecursiveDir)%(Filename)%(Extension)" SubType="Designer" />
         <Compile DependentUpon="%(Filename)" Update="**\*.xaml.cs" />
     </ItemGroup>
+    <Target Name="Clean"/>
+    <Target Name="Build"/>
 </Project>

@@ -22,4 +22,6 @@
         <Page Include="**\*.xaml" Exclude="**\bin\**\*.xaml;**\obj\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
         <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
     </ItemGroup>
+    <Target Name="Clean"/>
+    <Target Name="Build"/>
 </Project>
